@@ -50,17 +50,21 @@
       constructor(desiredModel) {
         this.model = desiredModel
         this.altitude = 0
-        let meters = ' '
       }
       up(meters) {
         this.altitude += meters
-        console.log(`current altitude is ${meters} meters high`)
+        return this.altitude
+        
       }
       down(meters) {
-        this.altitude -= meters
-        console.log(`current altitude is ${meters} meters high`)
+        if (this.altitude >= meters) {
+          this.altitude -= meters
+          return this.altitude
+        }
+        this.altitude = 0
+        return "CRASH!"
       } 
-      }
+    }
     
     const plane = new AirPlane()
 
@@ -72,21 +76,23 @@
     // 🧠 The methods also return one of these two strings: "You turned the bulb ON", or "You turned the bulb OFF".
     class Bulb {
       isOn = false
-
       turnOn() {
-       isOn
+        this.isOn = true
         return "You turned the bulb ON"
       }
       turnOff() {
-        isOn
+        this.isOn = false
         return "You turned the bulb OFF"
       }
       toggle() {
-
-      }
+        this.isOn = !this.isOn
+        if (this.isOn) {
+          return "You turned the bulb ON"
+        } else {
+          return "You turned the bulb OFF"
+        }
     }
-    const light = new Bulb
-
+  }
     // 👉 CHALLENGE 4
     // 🧠 Build a CountDown class that can count down starting at any number we pass to the constructor.
     // 🧠 CountDowns have a `count` method that returns a string in the format "10!".
@@ -102,14 +108,25 @@
     //   minusThree.count() // returns null
     //   minusThree.count() // returns null
     class CountDown {
-      constructor() {
-        this.number = 0
+      constructor(number) {
+        this.num = number
+      }
+
+      count() {
+        if (this.num >= 1) {
+          let newNum = this.num
+          this.num--
+          return `${newNum}!`
+        } else if ( this.num === 0) {
+          this.num--
+          return "Liftoff!"
+        } else {
+          return null
         }
-        count(number) {
-          return `${number}!`
-          }
-        }
-        let minusThree = new CountDown()
+      }
+  
+    }      
+        let minusThree = new CountDown(0)
 
     // 🧪 TESTS, do not work below this line
     // 🧪 TESTS, do not work below this line
